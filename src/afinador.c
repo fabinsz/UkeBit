@@ -129,7 +129,7 @@ void sample_mic() {
     return dominant_frequency;
 }
 
-
+// exibicao do menu
 void menu(uint8_t *ssd, int num) {
     // Definindo um array de strings
     char corda_1[20], corda_2[20], corda_3[20], corda_4[20];
@@ -167,14 +167,14 @@ void menu(uint8_t *ssd, int num) {
         ssd1306_draw_string(ssd, 10, 20 + (i * 10), cordas[i]);  // Posicionando as cordas
     }
 }
-
+// centraliza um titulo no display
 void centraliza(uint8_t *ssd, char title[]){
     int title_len = strlen(title);
     int title_x = (128 - title_len * 6) / 2;  // 6 é a largura de cada caractere em pixels (supondo uma fonte de 6x8)
     ssd1306_draw_string(ssd, title_x, 0, title); 
 }
 
-
+// desenha frequenciua registrada no display
 void draw_frequency(uint8_t *ssd, int num, float frequency) {
     char ideal[20], cord[20];
     
@@ -208,7 +208,7 @@ void draw_frequency(uint8_t *ssd, int num, float frequency) {
     ssd1306_draw_string(ssd, 10, 50, ideal);
 }
 
-
+// visualiza a cor do led
 void visualizer(int num, float frequency){
 
     switch (num)
@@ -314,13 +314,13 @@ void led_off(){
     gpio_put(GREEN_LED, 0);
     gpio_put(RED_LED, 0);
 }
-
+// inicializacao ADC
 void ADC(){
     adc_gpio_init(MIC_PIN);
     adc_init();
     adc_select_input(MIC_CHANNEL);
 }
-
+// inicializacao Botoes
 void botoes(){
 
     gpio_init(BUTTON_A);
@@ -332,18 +332,18 @@ void botoes(){
     gpio_set_dir(BUTTON_B, GPIO_IN);
     gpio_pull_up(BUTTON_B);
 }
-
+// Inicializacao do I2C
 void I2C(){
-    // Inicialização do I2C
+    
     i2c_init(i2c1, ssd1306_i2c_clock * 1000);
     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
     gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
     gpio_pull_up(I2C_SDA);
     gpio_pull_up(I2C_SCL);
 }
-
+// Inicializacao dos leds
 void leds(){
-    // Inicialização dos leds
+    
     gpio_init(RED_LED);
     gpio_set_dir(RED_LED, GPIO_OUT);
 
@@ -353,9 +353,9 @@ void leds(){
     gpio_init(GREEN_LED);
     gpio_set_dir(GREEN_LED, GPIO_OUT);
 }
-
+// Tomando posse de canal do DMA.
 void dma(){
-    // Tomando posse de canal do DMA.
+
     dma_channel = dma_claim_unused_channel(true);
     dma_cfg = dma_channel_get_default_config(dma_channel);
     channel_config_set_transfer_data_size(&dma_cfg, DMA_SIZE_16);
@@ -370,7 +370,7 @@ int main() {
     bool main_menu = true;
     int num_b = 0;
 
-    // Preparação do ADC.
+    // Preparação das funcoes.
     ADC();
 
     botoes();   
@@ -433,7 +433,7 @@ int main() {
             else if (gpio_get(BUTTON_A) == 0){
                 sleep_ms(50);  
                 if (gpio_get(BUTTON_A) == 0) { 
-                    main_menu = false;
+                    main_menu = false; // desativa o menu temporariamente
                     while (gpio_get(BUTTON_A) == 0); 
                 }
             }
@@ -448,13 +448,13 @@ int main() {
         }
 
         if (gpio_get(BUTTON_B) == 0 || gpio_get(BUTTON_A) == 0) {  // Verifica se o botão foi pressionado
-            sleep_ms(50);  // Debounce: espera 50ms para evitar leituras falsas
+            sleep_ms(50);  
             if (gpio_get(BUTTON_B) == 0 || gpio_get(BUTTON_A) == 0) { // Confirma que ainda está pressionado
-                main_menu = true;
+                main_menu = true; // ativa o menu novamente
                 while (gpio_get(BUTTON_B) == 0 || gpio_get(BUTTON_A) == 0); // Aguarda o botão ser solto
             }
         }
-        switch (num_b) {
+        switch (num_b) { 
             case 0: 
                 draw_frequency(ssd, num_b, frequency); 
                 visualizer(num_b, frequency);
