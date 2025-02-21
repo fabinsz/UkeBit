@@ -20,7 +20,7 @@ UkeBit é um afinador de ukulele baseado no BitDogLab, desenvolvido como projeto
 - 🟢 **Verde:** A frequência está correta, corda afinada.
 
 ##  Demonstração
-Assista ao vídeo demonstrativo do funcionamento do UkeBit: [Adicionar link aqui]
+Assista ao vídeo demonstrativo do funcionamento do UkeBit: https://youtube.com/shorts/VrzDh047vJQ?feature=share
 
 
 
