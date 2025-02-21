@@ -12,7 +12,7 @@ UkeBit é um afinador de ukulele baseado no BitDogLab, desenvolvido como projeto
 1. **Selecionar a corda:** Utilize o botão **B** para navegar pelo menu e o botão **A** para escolher a corda a ser afinada.
 2. **Visualizar a afinação:** O display OLED mostrará a frequência detectada e a frequência ideal.
 3. **Feedback visual:** Os LEDs indicarão o estado da afinação.
-4. **voltar para o menu:** Ao pressionar o botão **A** ou o **B**, voce retorna para o menu principal.
+4. **voltar para o menu:** Ao pressionar o botão **A** ou **B**, voce retorna para o menu principal.
 
 ##  Indicação dos LEDs
 - 🔴 **Vermelho:** A frequência está abaixo da ideal.
