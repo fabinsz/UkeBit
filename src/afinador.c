@@ -178,8 +178,9 @@ void centraliza(uint8_t *ssd, char title[]){
 void draw_frequency(uint8_t *ssd, int num, float frequency) {
     char ideal[20], cord[20];
     
-    memset(ssd, 0, ssd1306_buffer_length);  // Limpa o buffer antes de desenhar o menu    
+    memset(ssd, 0, ssd1306_buffer_length);  // Limpa o buffer antes de desenhar o menu 
     
+    // ve se a frequencia é menor que 20 Hz e maior que 4 Hz
     if (frequency <= 20 && frequency >= 4){
         draw_float_on_oled(ssd, 40, 25, frequency, 2); // Exibe frequencia com 2 casas decimais
     }
@@ -210,7 +211,7 @@ void draw_frequency(uint8_t *ssd, int num, float frequency) {
 
 // visualiza a cor do led
 void visualizer(int num, float frequency){
-
+    // analisa o valor da frequencia detectada  
     switch (num)
     {
     case 0:
@@ -437,6 +438,7 @@ int main() {
                     while (gpio_get(BUTTON_A) == 0); 
                 }
             }
+            // Exibicao do menu
             switch (num_b) {
                 case 0: menu(ssd, num_b); break;
                 case 1: menu(ssd, num_b); break;
@@ -454,6 +456,7 @@ int main() {
                 while (gpio_get(BUTTON_B) == 0 || gpio_get(BUTTON_A) == 0); // Aguarda o botão ser solto
             }
         }
+        // exibicao das frequencias de cada corda   
         switch (num_b) { 
             case 0: 
                 draw_frequency(ssd, num_b, frequency); 
